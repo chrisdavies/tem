@@ -66,6 +66,16 @@
 
       expect(fn()).toEqual('Sally');
     });
+
+    it('Handles custom commands', function () {
+      tem.cmd('caps', function (c, args) {
+        return args.trim().toUpperCase();
+      });
+
+      var fn = tem.build('{{caps Hello}}');
+
+      expect(fn()).toEqual('HELLO');
+    });
   });
 
 })(this.tem || require('../tem'));
