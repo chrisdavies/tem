@@ -80,11 +80,11 @@ var tem = (function () {
   }
 
   function unsanitizeCode(str) {
-    return str.replace(/\\([\'\\])/g, '$1');
+    return str.replace(/\\([\'\\\n\r\t])/g, '$1');
   }
 
   function sanitizeTemplate(str) {
-    return str.replace(/([\n\t\r\'])/g, '\\$1');
+    return str.replace(/([\n\t\r\'\\])/g, '\\$1');
   }
 
   function parse(str) {

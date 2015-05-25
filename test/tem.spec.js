@@ -59,6 +59,13 @@
 
       expect(fn()).toEqual('<h1>Shazam!</h1>');
     });
+
+    it('Handles newlines', function () {
+      tem.add('user', '{{= it.name}}');
+      var fn = tem.build('{{tem user {\n\t name: "Sally" \n\t} }}');
+
+      expect(fn()).toEqual('Sally');
+    });
   });
 
 })(this.tem || require('../tem'));
