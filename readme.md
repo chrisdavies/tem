@@ -1,4 +1,6 @@
-# tem, a small, fast, flexible template engine in JavaScript
+# tem
+
+A small, fast, flexible template engine in JavaScript.
 
 - Zero dependencies
 - Tiny (less than 1KB)
