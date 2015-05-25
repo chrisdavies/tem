@@ -1,6 +1,6 @@
 {
   "name": "tem",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "A little, flexible template engine for JavaScript",
   "main": "tem.js",
   "directories": {},

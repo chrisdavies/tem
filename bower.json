@@ -1,7 +1,7 @@
 {
   "name": "tem",
   "main": "tem.js",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "homepage": "https://github.com/chrisdavies/tem",
   "authors": [
     "Chris Davies <ferociousturtle@gmail.com>"
