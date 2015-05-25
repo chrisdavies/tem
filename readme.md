@@ -1,5 +1,6 @@
 # tem, a small, fast, flexible template engine in JavaScript
 
+- Zero dependencies
 - Tiny (less than 1KB)
 - As fast (or nearly) as doT
 - Support for master pages
