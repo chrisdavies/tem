@@ -1,0 +1,27 @@
+{
+  "name": "tem",
+  "version": "0.0.1",
+  "description": "A little, flexible template engine for JavaScript",
+  "main": "tem.js",
+  "directories": {},
+  "scripts": {
+    "test": "jasmine-node test/*.spec.js",
+    "min": "uglifyjs tem.js --source-map tem.min.js.map -m -c -o tem.min.js && echo 'Minified size' && uglifyjs tem.js | gzip -9f | wc -c"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/chrisdavies/tem"
+  },
+  "keywords": [
+    "template", "templating", "master pages", "partials"
+  ],
+  "author": "Chris Davies <ferociousturtle@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/chrisdavies/tem/issues"
+  },
+  "homepage": "https://github.com/chrisdavies/tem",
+  "devDependencies": {
+    "jasmine-node": "^1.14.5"
+  }
+}

@@ -99,7 +99,10 @@ var tem = (function () {
   }
 
   ns.build = function (html) {
-    return new Function('it', 'body', 'var out = \'' + parse(html) + '\'; return out;');
+    var fn = new Function('tem', 'it', 'body', 'var out = \'' + parse(html) + '\'; return out;');
+    return function (it, body) {
+      return fn(tem, it, body);
+    }
   };
 
   ns.esc = function (str) {
@@ -125,3 +128,13 @@ var tem = (function () {
   return ns;
 
 })();
+
+(function (root, factory) {
+  var define = root.define;
+
+  if (define && define.amd) {
+    define([], factory);
+  } else if (typeof module !== 'undefined' && module.exports) {
+    module.exports = factory();
+  }
+}(this, function () { return tem; }));
