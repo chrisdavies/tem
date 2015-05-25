@@ -10,13 +10,154 @@
 
 ## Usage
 
-- Adding your own commands
-- Using partials
-- Using masters
-- Conditionals
-- Loops
-- Escaping
-- Raw output
+tem is mustache like. It uses the `{{sym args}}` where sym is the symbol or
+command, and args are the arguments, if any. Blocks such as for or if are
+closed with `{{/}}`
+
+The model is referred to as `it`, just as in doT.
+
+### Conditionals
+
+```html
+<h1>Hi,
+{{if it.age < 20}}
+  <span class="young">Youngster</span>
+{{else-if it.age > 100}}
+  <span class="old">Oldster</span>
+{{else}}
+  <span class="meh">You</span>
+{{/}}
+</h1>
+```
+
+### Loops
+
+```html
+<ul class="users">
+{{for it.users u}}
+  <li>{{= u.name}}</li>
+{{/}}
+</ul>
+```
+
+Or, if you want the index:
+
+```html
+<ul class="users">
+{{for it.users u, x}}
+  <li>{{= u.name}} is number {{- x}}</li>
+{{/}}
+</ul>
+```
+
+### Escaping
+
+The `=` option escapes any HTML in the model before rendering it. The `-`
+option does not.
+
+```html
+<h1>{{= it.name}} is escaped</h1>
+<h2>{{- it.name}} is not escaped</h2>
+```
+
+### Partials
+
+Partials can be called like so:
+
+```javascript
+dotx.add('myview', '<h1>{{= it.name}}</h1>');
+dotx.add('deets', '{{tem myview}}');
+
+dotx('deets', { name: "Greg" }); // <h1>Greg</h1>
+```
+
+Partials get the `it` context from the caller by default, but this can
+be overridden.
+
+```javascript
+dotx.add('myview', '<h1>{{= it.name}}</h1>');
+dotx.add('deets', '{{tem myview { name: "Chris" } }}');
+
+dotx('deets', { name: "Greg" }); // <h1>Chris</h1>
+```
+
+### Masters
+
+It's often useful to have a master template that wraps child templates.
+
+Master template (let's say it's named `page-layout`):
+
+```html
+<main>
+  <header>This is the header</header>
+  <article>{{yield}}</article>
+  <footer>Copyright (c) 2083</footer>
+</main>
+```
+
+Child template:
+
+```html
+{{master page-layout}}
+  <h1>This is the child</h1>
+{{/}}
+```
+
+That combination will produce this:
+
+```html
+<main>
+  <header>This is the header</header>
+  <article><h1>This is the child</h1></article>
+  <footer>Copyright (c) 2083</footer>
+</main>
+```
+
+## Adding your own commands
+
+A command defined like this:
+
+```javascript
+tem.cmd('rand', function (cmd, args, context) {
+  return Math.floor(Math.random() * parseInt(args));
+});
+```
+
+Would be called like this:
+
+```html
+{{rand 45}}
+```
+
+### Arguments
+
+- `cmd` is the command, in this case 'rand'
+- `args` is the string representation of the arguments '45'
+- `context` is an array
+  - if your command is not self-closing, then
+  - push the closing string onto the array
+
+### Commands with closing blocks
+
+```javascript
+tem.cmd('wrap', function (cmd, args, context) {
+  args = args.trim();
+  context.push('</' + args + '>');
+  return '<' + args + '>';
+});
+```
+
+When called like this:
+
+```html
+{{wrap div}}Hello world{{/}}
+```
+
+Would produce this:
+
+```html
+<div>Hello world</div>
+```
 
 ## Installation
 

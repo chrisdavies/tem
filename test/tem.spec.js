@@ -46,6 +46,13 @@
       expect(fn({ name: 'Joe' })).toEqual('Joe');
     });
 
+    it('Handles partials with explicit it', function () {
+      tem.add('user', '{{= it.name}}');
+      var fn = tem.build('{{tem user {name: "Sally"} }}');
+
+      expect(fn({ name: 'Joe' })).toEqual('Sally');
+    });
+
     it('Handles masters', function () {
       tem.add('user', '<h1>{{yield}}</h1>');
       var fn = tem.build('{{master user}}Shazam!{{/}}');

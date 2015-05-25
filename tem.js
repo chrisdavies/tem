@@ -125,6 +125,10 @@ var tem = (function () {
     };
   };
 
+  ns.cmd = function (name, fn) {
+    cmds[name] = fn;
+  };
+
   return ns;
 
 })();
