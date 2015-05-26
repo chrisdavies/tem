@@ -68,7 +68,7 @@
     });
 
     it('Handles custom commands', function () {
-      tem.cmd('caps', function (c, args) {
+      tem.cmd('caps', function (args) {
         return args.trim().toUpperCase();
       });
 

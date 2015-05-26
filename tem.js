@@ -3,34 +3,34 @@ var tem = (function () {
 
   var views = {};
   var cmds = {
-    '=': function (cmd, args) {
+    '=': function (args) {
       return '\' + tem.esc(' + unsanitizeCode(args) + ') +\'';
     },
 
-    '-': function (cmd, args) {
+    '-': function (args) {
       return '\' + ' + unsanitizeCode(args) + ' +\'';
     },
 
-    'if': function (cmd, args, ctx) {
+    'if': function (args, ctx) {
       ctx.push('\': \'\') + \'');
 
       return '\' + ('+ unsanitizeCode(args) + '? \'';
     },
 
-    'else-if': function (cmd, args, ctx) {
+    'else-if': function (args, ctx) {
       ctx.pop();
       ctx.push('\': \'\')) + \'');
 
       return '\':('+ unsanitizeCode(args) + '? \'';
     },
 
-    'else': function (cmd, args, ctx) {
+    'else': function (args, ctx) {
       ctx[ctx.length - 1] = '\') + \'';
 
       return '\': \'';
     },
 
-    'for': function (cmd, args, ctx) {
+    'for': function (args, ctx) {
       ctx.push('\'; } out += \'');
       args = args.trim().split(/[\s\,]+/);
       var arrName = args[0],
@@ -41,16 +41,16 @@ var tem = (function () {
         varName + ' = ' + arrName + '[' + iName + ']; out += \'';
     },
 
-    '/': function (a, b, ctx) {
+    '/': function (b, ctx) {
       return ctx.pop();
     },
 
-    'tem': function (a, args) {
+    'tem': function (args) {
       var params = viewParams(args);
       return '\' + tem(\'' + params.view + '\', ' + params.it + ') + \'';
     },
 
-    'master': function (a, args, ctx) {
+    'master': function (args, ctx) {
       ctx.push('\'; return out; })()) + \'');
       var params = viewParams(args);
       return '\' + tem(\'' + params.view + '\', ' + params.it + ', (function (){ var out =\'';
@@ -94,7 +94,7 @@ var tem = (function () {
 
     return str.replace(/\{\{([^\s\}]+)([\s\S]*?(\}?))\}\}/g, function (a, cmd, args) {
       var fn = cmds[cmd];
-      return fn ? fn(cmd, args, ctx) : a;
+      return fn ? fn(args, ctx) : a;
     });
   }
 

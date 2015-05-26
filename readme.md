@@ -118,7 +118,7 @@ That combination will produce this:
 A command defined like this:
 
 ```javascript
-tem.cmd('rand', function (cmd, args, context) {
+tem.cmd('rand', function (args, context) {
   return Math.floor(Math.random() * parseInt(args));
 });
 ```
@@ -131,7 +131,6 @@ Would be called like this:
 
 ### Arguments
 
-- `cmd` is the command, in this case 'rand'
 - `args` is the string representation of the arguments '45'
 - `context` is an array
   - if your command is not self-closing, then
