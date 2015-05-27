@@ -1,5 +1,8 @@
-# tem, a small, fast, flexible template engine in JavaScript
+# tem
 
+A small, fast, flexible template engine in JavaScript.
+
+- Zero dependencies
 - Tiny (less than 1KB)
 - As fast (or nearly) as doT
 - Support for master pages
@@ -65,20 +68,20 @@ option does not.
 Partials can be called like so:
 
 ```javascript
-dotx.add('myview', '<h1>{{= it.name}}</h1>');
-dotx.add('deets', '{{tem myview}}');
+tem.add('myview', '<h1>{{= it.name}}</h1>');
+tem.add('deets', '{{tem myview}}');
 
-dotx('deets', { name: "Greg" }); // <h1>Greg</h1>
+tem('deets', { name: "Greg" }); // <h1>Greg</h1>
 ```
 
 Partials get the `it` context from the caller by default, but this can
 be overridden.
 
 ```javascript
-dotx.add('myview', '<h1>{{= it.name}}</h1>');
-dotx.add('deets', '{{tem myview { name: "Chris" } }}');
+tem.add('myview', '<h1>{{= it.name}}</h1>');
+tem.add('deets', '{{tem myview { name: "Chris" } }}');
 
-dotx('deets', { name: "Greg" }); // <h1>Chris</h1>
+tem('deets', { name: "Greg" }); // <h1>Chris</h1>
 ```
 
 ### Masters
@@ -139,7 +142,7 @@ Would be called like this:
 ### Commands with closing blocks
 
 ```javascript
-tem.cmd('wrap', function (cmd, args, context) {
+tem.cmd('wrap', function (args, context) {
   args = args.trim();
   context.push('</' + args + '>');
   return '<' + args + '>';
