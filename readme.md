@@ -68,20 +68,20 @@ option does not.
 Partials can be called like so:
 
 ```javascript
-dotx.add('myview', '<h1>{{= it.name}}</h1>');
-dotx.add('deets', '{{tem myview}}');
+tem.add('myview', '<h1>{{= it.name}}</h1>');
+tem.add('deets', '{{tem myview}}');
 
-dotx('deets', { name: "Greg" }); // <h1>Greg</h1>
+tem('deets', { name: "Greg" }); // <h1>Greg</h1>
 ```
 
 Partials get the `it` context from the caller by default, but this can
 be overridden.
 
 ```javascript
-dotx.add('myview', '<h1>{{= it.name}}</h1>');
-dotx.add('deets', '{{tem myview { name: "Chris" } }}');
+tem.add('myview', '<h1>{{= it.name}}</h1>');
+tem.add('deets', '{{tem myview { name: "Chris" } }}');
 
-dotx('deets', { name: "Greg" }); // <h1>Chris</h1>
+tem('deets', { name: "Greg" }); // <h1>Chris</h1>
 ```
 
 ### Masters
@@ -121,7 +121,7 @@ That combination will produce this:
 A command defined like this:
 
 ```javascript
-tem.cmd('rand', function (cmd, args, context) {
+tem.cmd('rand', function (args, context) {
   return Math.floor(Math.random() * parseInt(args));
 });
 ```
@@ -134,7 +134,6 @@ Would be called like this:
 
 ### Arguments
 
-- `cmd` is the command, in this case 'rand'
 - `args` is the string representation of the arguments '45'
 - `context` is an array
   - if your command is not self-closing, then
@@ -143,7 +142,7 @@ Would be called like this:
 ### Commands with closing blocks
 
 ```javascript
-tem.cmd('wrap', function (cmd, args, context) {
+tem.cmd('wrap', function (args, context) {
   args = args.trim();
   context.push('</' + args + '>');
   return '<' + args + '>';
