@@ -1,0 +1,40 @@
+.main-content {
+  height: 100%;
+}
+
+.content-section {
+  max-width: 600px;
+  padding: 5em 3em;
+  margin: auto;
+}
+
+.btn {
+  border: 0;
+  text-decoration: none;
+  color: inherit;
+  padding: 1em 2.5em;
+}
+
+.btn-primary {
+  background: #1CB7B4;
+  color: white;
+}
+
+.hero {
+  background: #FAF3EC;
+  color: #777;
+  min-height: 100%;
+}
+
+.hero-title {
+  color: #1CB7B4;
+}
+
+.hero-title .logo {
+  color: #F35151;
+}
+
+.hero-nav {
+  margin-top: 4em;
+  text-align: center;
+}
