@@ -13,7 +13,7 @@ A small, fast, flexible template engine in JavaScript.
 
 ## Usage
 
-tem is mustache like. It uses the `{{sym args}}` where sym is the symbol or
+tem is mustache-like. It uses the `{{sym args}}` where sym is the symbol or
 command, and args are the arguments, if any. Blocks such as for or if are
 closed with `{{/}}`
 
