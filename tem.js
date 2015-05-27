@@ -63,18 +63,16 @@ var tem = (function () {
 
   function viewParams(args) {
     args = unsanitizeCode(args.trim());
-    var i = args.indexOf(' ');
-    var view = i >= 0 ? args.slice(0, i) : args;
-    var it = i >= 0 ? args.slice(i).trim() || 'it' : 'it';
+    var i = args.indexOf(' '),
+        view = i >= 0 ? args.slice(0, i) : args,
+        it = i >= 0 ? args.slice(i).trim() || 'it' : 'it';
     return { it: it, view: view };
   }
 
-  function ns(name, model, body) {
+  function tem(name, model, body) {
     var v = views[name];
 
-    if (v) {
-      return v(model, body);
-    }
+    if (v) return v(model, body);
 
     throw new Error('View ' + name + ' not found.');
   }
@@ -98,14 +96,14 @@ var tem = (function () {
     });
   }
 
-  ns.build = function (html) {
+  tem.build = function (html) {
     var fn = new Function('tem', 'it', 'body', 'var out = \'' + parse(html) + '\'; return out;');
     return function (it, body) {
       return fn(tem, it, body);
     }
   };
 
-  ns.esc = function (str) {
+  tem.esc = function (str) {
     var map = {
       '<': '&lt;',
       '>': '&gt;',
@@ -119,17 +117,17 @@ var tem = (function () {
     });
   };
 
-  ns.add = function (name, html) {
+  tem.add = function (name, html) {
     views[name] = function (model, body) {
-      return (views[name] = ns.build(html))(model, body);
+      return (views[name] = tem.build(html))(model, body);
     };
   };
 
-  ns.cmd = function (name, fn) {
+  tem.cmd = function (name, fn) {
     cmds[name] = fn;
   };
 
-  return ns;
+  return tem;
 
 })();
 
